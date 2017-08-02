@@ -1,6 +1,391 @@
 ---
 layout: default
 ---
+<style>
+.ballotspace div,
+.ballotspace ol,
+.ballotspace li,
+.ballotspace label,
+.ballotspace input {
+  position: relative;
+  display: inline-block;
+  /*float: left;*/
+  margin-left: 0;
+  margin-right: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-left: 0;
+  padding-right: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  /*height: 100%;  can't use this because setting it back to auto doesn't work when we need it*/
+  /*width: 100%;*/
+  background-position: center;
+  background-size: cover;
+  border: none;
+  list-style: none;
+}
+.ballotspace label:hover {
+  cursor: pointer;
+}
+
+/* basic layout */
+.ballotheader {
+  height: 90px;
+  width: 100%;
+  color: white;
+  font-size: 34px;
+  text-align: left;
+  line-height: 90px;
+  font-family: sans-serif;
+}
+
+/* step navigator */
+.stepNavigator {
+  width: 100%;
+  text-align: center;
+}
+.stepNavigator > a {
+  float: none;
+  padding: 10px 40px 0px 40px;
+  margin: 4px -2px 10px -2px;
+  font-size: 18px;
+  color: black;
+}
+.stepNavigator > a[href] {
+  color: white;
+}
+.stepNavigator > a::before {
+  content: '';
+  position: absolute;
+  top: -6px;
+  left: 50%;
+  right:auto;
+  transform: translateX(-50%);
+  /*background-color: #009faf;*/
+  background-color: white;
+  width: 100%;
+  height: 5px;
+}
+.stepNavigator > a:nth-of-type(1)::before {
+  left: 50%;
+  transform: none;
+  width: 50%;
+}
+.stepNavigator > a:nth-last-of-type(1)::before {
+  left: 0%;
+  transform: none;
+  width: 50%;
+}
+.stepNavigator > a::after {
+  content: '';
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  right:auto;
+  transform: translateX(-50%);
+  background-color: black;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+}
+.stepNavigator > a[href]::after {
+  background-color: white;
+}
+
+/* ballot layout and skin */
+.ballotspace {
+  box-sizing: border-box;
+  padding: 10px;
+  width: 100%;
+  background-color: #eeeeee;
+  text-align: center;
+  box-shadow: -3px 3px 4px lightgrey;
+  border-radius: 2px;
+}
+#ballotspaceheader {
+  width: 100%;
+  padding-top: 16px;
+  line-height: 30px;
+  font-size: 20px;
+  color: #3b3b3b;
+}
+#rankeditems,
+#unrankeditems {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 20px;
+  margin-top: 10px;
+  min-height: 50px;
+}
+#rankeditems::before,
+#unrankeditems::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border: 2px solid #aaaaaa;
+}
+#rankeditems::after,
+#unrankeditems::after {
+  content: "Unranked (tied for last)";
+  position: absolute;
+  font-size: 17px;
+  top: -7px;
+  left: 10px;
+  background-color: #eeeeee;
+  padding: 0 5px 0 5px;
+}
+#rankeditems::after {
+  content: "Ranked";
+}
+#unrankeditems .candidateDetails {
+  opacity: .7;
+}
+.candidate {
+  box-sizing: border-box;
+  width: 100%;
+  height: 48px;
+  /*min-height: 48px;*/
+  padding: 10px;
+}
+.candidateDetails {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 110px;
+  right: 0;
+  background-color: white;
+  box-shadow: 2px 2px 4px lightgrey;
+  border-radius: 2px;
+  font-family: arial;
+  line-height: 47px;
+  font-size: 15px;
+  font-weight: 400;
+  text-align: left;
+  overflow: hidden;
+}
+.candidateDescription {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 25px;
+  right: 100px;
+  color: #5d5d5d;
+}
+.candidateCost {
+  position: absolute;
+  box-sizing: border-box;
+  top: 0;
+  bottom: 0;
+  width: 100px;
+  right: 0;
+  padding: 0 5px 0 5px;
+  color: #d53e3e;
+}
+/*https://codepen.io/zachariab/pen/wkrbc*/
+.grippy {
+  position: absolute;
+  content: '....';
+  width: 10px;
+  height: 30px;
+  display: inline-block;
+  overflow: hidden;
+  line-height: 6px;
+  padding: 3px 4px;
+  cursor: move;
+  vertical-align: middle;
+  font-size: 19px;
+  font-family: sans-serif;
+  letter-spacing: 2px;
+  color: #cccccc;
+  top: 3px;
+  left: 2px;
+}
+.grippy::after {
+  content: '.. .. .. ..';
+}
+#unrankeditems > .candidate {
+  cursor: pointer;
+}
+#rankeditems > .candidate,
+.grippy,
+.grabby {
+  cursor: move;
+  cursor: grab;
+  cursor: -moz-grab;
+  cursor: -webkit-grab;
+}
+
+/* rank tie and banish display */
+#unrankeditems > .candidate > .rankingTools {
+  display: none;
+}
+.rankingTools {
+  position: absolute;
+  top: 0;
+  /*bottom: 0;*/
+  left: 0;
+  height: 100%;
+  width: 110px;
+  display: table;
+  text-align: left;
+}
+.rankdisplay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  /*left: 43px;*/
+  right: 2px;
+  /*height: 100%;*/
+  line-height: 47px;
+  width: 47px;
+  font-size: 18px;
+  background-color: #009faf;
+  color: #fff;
+  box-shadow: -2px 2px 4px lightgrey;
+  text-align: center;
+}
+.rankdisplay::before {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+/*.rankingTools:not(.ballotreview):hover .rankdisplay {*/
+.check:hover + .rankdisplay,
+.rankdisplay:hover {
+  display: none;
+}
+.rankingTools > input {
+  /*position: absolute;*/
+  height: 100%;
+  width: 45px;
+  /*transform: scale(1.5);*/
+  cursor: pointer;
+}
+.tie,
+.banish {
+  display: none;
+  height: 100%;
+  width: 33%;
+  text-align: center;
+  cursor: pointer;
+}
+label.check {
+  position: absolute;
+  box-sizing: border-box;
+  height: 100%;
+  width: 45px;
+  top: 0;
+  right: 0;
+}
+label.check::before,
+label.check::after {
+    content: "";
+    position: absolute;
+    top: 25%;
+    bottom: 25%;
+    left: 25%;
+    right: 25%;
+    /*border: 2px solid #009faf;*/
+    border: 2px solid #4dd0e1;
+    border-radius: 3px;
+}
+label.check::before {
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="50.04999923706055 37.630001068115234 99.89999389648438 81.08000183105469" width="99.89999389648438" height="81.08000183105469"><path d=" M 87.37 81.17 C 102.21 66.90 116.49 52.06 131.18 37.63 C 137.62 43.64 143.71 50.00 149.95 56.22 C 129.15 77.10 108.36 97.99 87.41 118.71 C 75.03 106.14 62.43 93.79 50.05 81.22 C 56.29 75.00 62.38 68.64 68.82 62.63 C 75.06 68.75 81.20 74.97 87.37 81.17 Z" transform="matrix(1, 0, 0, 1, -1.7763568394002505e-15, 0)" fill="#009faf"/></svg>');
+  /*background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='61' height='41' fill='@{bgColor}' stroke='none'><path d='M0,0 L30,40 L60,0 L0,0 Z'></path></svg>") no-repeat;*/
+  background-color: #fff;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  overflow: hidden;
+}
+label.check::after {
+  background-color: white;
+  opacity: 1;
+}
+label.check:hover::after {
+  opacity: .75;
+}
+.banish {
+  /*left: 20px;*/
+}
+.tie::before,
+.banish::before {
+  content: "";
+  /*position: absolute;*/
+  /*line-height: 48px;
+  font-size: 20px;
+  height: 100%;
+  width: 100%;*/
+
+  position: absolute;
+  top: 25%;
+  bottom: 25%;
+  left: 25%;
+  right: 25%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+.banish::before {
+  background-image: url('data:image/svg+xml;utf8,<svg viewBox="74.98812866210938 49.971858978271484 66.72299194335938 66.70027160644531" width="66.72299194335938" height="66.70027160644531" xmlns="http://www.w3.org/2000/svg"><path fill="#000000" d=" M 76.14 54.07 C 78.58 49.65 85.19 48.57 88.82 52.16 C 95.47 58.26 101.45 65.08 108.12 71.17 C 115.55 65.34 121.35 57.68 128.55 51.58 C 133.25 47.72 141.11 51.28 141.60 57.26 C 142.37 61.74 138.58 64.93 135.75 67.75 C 130.58 72.92 125.29 77.96 120.26 83.27 C 125.42 88.93 131.04 94.14 136.43 99.57 C 139.20 102.22 142.48 105.53 141.55 109.75 C 140.77 115.73 132.74 118.95 128.21 114.80 C 121.28 108.59 115.19 101.49 108.27 95.26 C 101.74 101.40 95.70 108.04 89.18 114.20 C 86.49 116.97 81.92 117.51 78.73 115.29 C 74.90 112.89 73.71 107.13 76.58 103.55 C 82.69 96.36 90.32 90.55 96.17 83.13 C 90.22 76.64 83.66 70.75 77.61 64.36 C 74.88 61.75 74.10 57.33 76.14 54.07 Z" transform="matrix(1, 0, 0, 1, -1.7763568394002505e-15, 0)"/></svg>');
+}
+.tie::before {
+  background-image: url('data:image/svg+xml;utf8,<svg viewBox="45.51939010620117 35.27499008178711 108.54060363769531 129.42190551757812" width="108.54060363769531" height="129.42190551757812" xmlns="http://www.w3.org/2000/svg"><path fill="#000000" d="M 55.59 36.5 C 63.26 33.09 72.91 37.11 76.26 44.71 C 78.87 50.22 77.99 57.29 73.82 61.8 C 71.81 63.98 69.07 65.24 66.84 67.14 C 65.56 75.92 68.98 85.47 76.43 90.57 C 81.17 94.07 87.2 95.17 92.97 95 C 107.73 94.87 116.984 95.449 131.734 95.199 C 131.835 86.378 131.555 85.635 131.79 76.29 C 136.68 80.69 141.01 85.68 145.72 90.27 C 148.5 93.18 151.61 95.81 154.06 99.02 C 150.57 103.5 146.12 107.11 142.24 111.23 C 138.52 114.71 135.741 118.195 131.641 121.235 C 131.772 113.534 131.672 111.606 131.792 103.687 C 118.712 103.467 110.08 104.19 97 104.09 C 92.13 104.12 87.11 103.75 82.43 105.4 C 74.65 107.96 68.49 114.96 67.11 123.05 C 66.58 126.3 66.44 129.64 66.81 132.91 C 69.79 135.7 74.07 137.27 75.84 141.24 C 80.37 148.98 76.39 159.73 68.28 163.22 C 60.74 166.96 50.92 163.27 47.24 155.83 C 44.17 149.88 45.31 141.9 50.38 137.39 C 52.51 135.4 55.49 134.62 57.64 132.68 C 58.02 126.83 57.66 120.73 60.24 115.28 C 62.68 108.84 67.62 103.87 73 99.78 C 68.27 95.57 63.22 91.32 60.78 85.27 C 57.91 79.77 58.1 73.49 57.51 67.5 C 53.35 65.17 48.78 62.69 46.97 57.96 C 43.08 49.99 47.37 39.64 55.59 36.5 Z" transform="matrix(1, 0, 0, 1, -8.881784197001252e-16, 0)"/></svg>');
+}
+.tie:hover::before {
+  background-image: url('data:image/svg+xml;utf8,<svg viewBox="45.51939010620117 35.27499008178711 108.54060363769531 129.42190551757812" width="108.54060363769531" height="129.42190551757812" xmlns="http://www.w3.org/2000/svg"><path fill="#aaa" d="M 55.59 36.5 C 63.26 33.09 72.91 37.11 76.26 44.71 C 78.87 50.22 77.99 57.29 73.82 61.8 C 71.81 63.98 69.07 65.24 66.84 67.14 C 65.56 75.92 68.98 85.47 76.43 90.57 C 81.17 94.07 87.2 95.17 92.97 95 C 107.73 94.87 116.984 95.449 131.734 95.199 C 131.835 86.378 131.555 85.635 131.79 76.29 C 136.68 80.69 141.01 85.68 145.72 90.27 C 148.5 93.18 151.61 95.81 154.06 99.02 C 150.57 103.5 146.12 107.11 142.24 111.23 C 138.52 114.71 135.741 118.195 131.641 121.235 C 131.772 113.534 131.672 111.606 131.792 103.687 C 118.712 103.467 110.08 104.19 97 104.09 C 92.13 104.12 87.11 103.75 82.43 105.4 C 74.65 107.96 68.49 114.96 67.11 123.05 C 66.58 126.3 66.44 129.64 66.81 132.91 C 69.79 135.7 74.07 137.27 75.84 141.24 C 80.37 148.98 76.39 159.73 68.28 163.22 C 60.74 166.96 50.92 163.27 47.24 155.83 C 44.17 149.88 45.31 141.9 50.38 137.39 C 52.51 135.4 55.49 134.62 57.64 132.68 C 58.02 126.83 57.66 120.73 60.24 115.28 C 62.68 108.84 67.62 103.87 73 99.78 C 68.27 95.57 63.22 91.32 60.78 85.27 C 57.91 79.77 58.1 73.49 57.51 67.5 C 53.35 65.17 48.78 62.69 46.97 57.96 C 43.08 49.99 47.37 39.64 55.59 36.5 Z" transform="matrix(1, 0, 0, 1, -8.881784197001252e-16, 0)"/></svg>');
+  /*color: #aaaaaa;*/
+}
+.banish:hover::before {
+  background-image: url('data:image/svg+xml;utf8,<svg viewBox="74.98812866210938 49.971858978271484 66.72299194335938 66.70027160644531" width="66.72299194335938" height="66.70027160644531" xmlns="http://www.w3.org/2000/svg"><path fill="red" d=" M 76.14 54.07 C 78.58 49.65 85.19 48.57 88.82 52.16 C 95.47 58.26 101.45 65.08 108.12 71.17 C 115.55 65.34 121.35 57.68 128.55 51.58 C 133.25 47.72 141.11 51.28 141.60 57.26 C 142.37 61.74 138.58 64.93 135.75 67.75 C 130.58 72.92 125.29 77.96 120.26 83.27 C 125.42 88.93 131.04 94.14 136.43 99.57 C 139.20 102.22 142.48 105.53 141.55 109.75 C 140.77 115.73 132.74 118.95 128.21 114.80 C 121.28 108.59 115.19 101.49 108.27 95.26 C 101.74 101.40 95.70 108.04 89.18 114.20 C 86.49 116.97 81.92 117.51 78.73 115.29 C 74.90 112.89 73.71 107.13 76.58 103.55 C 82.69 96.36 90.32 90.55 96.17 83.13 C 90.22 76.64 83.66 70.75 77.61 64.36 C 74.88 61.75 74.10 57.33 76.14 54.07 Z" transform="matrix(1, 0, 0, 1, -1.7763568394002505e-15, 0)"/></svg>');
+  color: red;
+}
+input[type=checkbox] {
+  display: none;
+}
+.rankingTools > input:checked ~ .tie,
+.rankingTools > input:checked ~ .banish {
+  display: inline-block;
+}
+.rankingTools > input:checked ~ .rankdisplay {
+  display: none;
+}
+.rankingTools > input:checked ~ label.check::after {
+  opacity: 0;
+}
+/*hide rankingTools box when dragging*/
+.candidate.gu-mirror > .rankingTools {
+  display: none;
+}
+
+/* rank counting (FUNCTIONAL) */
+/* increment the rank with each candidate by default */
+#rankeditems > .candidate {
+  counter-increment: rank;
+}
+/* do not increment the rank for gu-transit items that fall after a tied item, nor the ranks for items within a tie that fall after a gu-transit item, since they might not be coming from a tie */
+#rankeditems > .candidate[data-tie] + .gu-transit,
+#rankeditems > .candidate.gu-transit + [data-tie="middle"],
+#rankeditems > .candidate.gu-transit + [data-tie="end"],
+#rankeditems > .candidate[data-tie] + [data-tie] {
+  counter-increment: none;
+}
+#rankeditems > .candidate[data-tie] + [data-tie="start"]:not(.gu-transit),
+/* increment the rank for gu-transit items that fall right after the end of a tie */
+#rankeditems > .candidate[data-tie="end"] + .gu-transit {
+  counter-increment: rank;
+}
+/* actually show the count */
+#rankeditems > .candidate > .rankingTools > .rankdisplay::before {
+  content: counter(rank);
+}
+</style>
 <div class="ballotspace">
   <div id="ballotspaceheader">Select your 1st choice</div>
   <ol id="rankeditems">
