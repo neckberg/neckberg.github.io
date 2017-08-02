@@ -1,15 +1,11 @@
 ---
 layout: default
 ---
-<style>
-.ballotspace div,
-.ballotspace ol,
-.ballotspace li,
-.ballotspace label,
-.ballotspace input {
+<div class="ballotspace">
+<style scoped="true">
+div, ol, li, label, input {
   position: relative;
   display: inline-block;
-  /*float: left;*/
   margin-left: 0;
   margin-right: 0;
   margin-top: 0;
@@ -18,8 +14,6 @@ layout: default
   padding-right: 0;
   padding-top: 0;
   padding-bottom: 0;
-  /*height: 100%;  can't use this because setting it back to auto doesn't work when we need it*/
-  /*width: 100%;*/
   background-position: center;
   background-size: cover;
   border: none;
@@ -386,7 +380,6 @@ input[type=checkbox] {
   content: counter(rank);
 }
 </style>
-<div class="ballotspace">
   <div id="ballotspaceheader">Select your 1st choice</div>
   <ol id="rankeditems">
   </ol>
