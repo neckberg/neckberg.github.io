@@ -1,7 +1,133 @@
 ---
 layout: default
 ---
-
+<div class="ballotspace">
+  <div id="ballotspaceheader">Select your 1st choice</div>
+  <ol id="rankeditems">
+  </ol>
+  <ol id="unrankeditems">
+    <li class="candidate" onclick="candidateClick(this)">
+      <div class="rankingTools">
+        <input type="checkbox" name="ballotcheck" id="ballotcheck-8">
+        <div class="banish" onclick="processSelected(event,banish)"></div>
+        <div class="tie" onclick="processSelected(event,tieSelected)"></div>
+        <label class="check" for="ballotcheck-8"></label>
+        <div class="rankdisplay"></div>
+      </div>
+      <div class="candidateDetails">
+        <div class="grippy"></div>
+        <div class="candidateDescription">Paterson Street Operations Center Remodel project</div>
+        <div class="candidateCost">(-$350,000)</div>
+      </div>
+    </li>
+    <li class="candidate" onclick="candidateClick(this)">
+      <div class="rankingTools">
+        <input type="checkbox" name="ballotcheck" id="ballotcheck-9">
+        <div class="banish" onclick="processSelected(event,banish)"></div>
+        <div class="tie" onclick="processSelected(event,tieSelected)"></div>
+        <label class="check" for="ballotcheck-9"></label>
+        <div class="rankdisplay"></div>
+      </div>
+      <div class="candidateDetails">
+        <div class="grippy"></div>
+        <div class="candidateDescription">Amendment for repairs at the Village on Park</div>
+        <div class="candidateCost">(-$72,928)</div>
+      </div>
+    </li>
+  <li class="candidate" onclick="candidateClick(this)">
+      <div class="rankingTools">
+        <input type="checkbox" name="ballotcheck" id="ballotcheck-1">
+        <div class="banish" onclick="processSelected(event,banish)"></div>
+        <div class="tie" onclick="processSelected(event,tieSelected)"></div>
+        <label class="check" for="ballotcheck-1"></label>
+        <div class="rankdisplay"></div>
+      </div>
+      <div class="candidateDetails">
+        <div class="grippy"></div>
+        <div class="candidateDescription">Pump Station Improvement</div>
+        <div class="candidateCost">(-$150,000)</div>
+      </div>
+    </li><li class="candidate" onclick="candidateClick(this)">
+      <div class="rankingTools">
+        <input type="checkbox" name="ballotcheck" id="ballotcheck-3">
+        <div class="banish" onclick="processSelected(event,banish)"></div>
+        <div class="tie" onclick="processSelected(event,tieSelected)"></div>
+        <label class="check" for="ballotcheck-3"></label>
+        <div class="rankdisplay"></div>
+      </div>
+      <div class="candidateDetails">
+        <div class="grippy"></div>
+        <div class="candidateDescription">Approve RFP and 1-year seed-funding for Participatory Budgeting experiment</div>
+        <div class="candidateCost">(-$267,000)</div>
+      </div>
+    </li><li class="candidate" onclick="candidateClick(this)">
+      <div class="rankingTools">
+        <input type="checkbox" name="ballotcheck" id="ballotcheck-5">
+        <div class="banish" onclick="processSelected(event,banish)"></div>
+        <div class="tie" onclick="processSelected(event,tieSelected)"></div>
+        <label class="check" for="ballotcheck-5"></label>
+        <div class="rankdisplay"></div>
+      </div>
+      <div class="candidateDetails">
+        <div class="grippy"></div>
+        <div class="candidateDescription">Amendment to Buckeye Road project.</div>
+        <div class="candidateCost">(-$65,000)</div>
+      </div>
+    </li><li class="candidate" onclick="candidateClick(this)">
+      <div class="rankingTools">
+        <input type="checkbox" name="ballotcheck" id="ballotcheck-2">
+        <div class="banish" onclick="processSelected(event,banish)"></div>
+        <div class="tie" onclick="processSelected(event,tieSelected)"></div>
+        <label class="check" for="ballotcheck-2"></label>
+        <div class="rankdisplay"></div>
+      </div>
+      <div class="candidateDetails">
+        <div class="grippy"></div>
+        <div class="candidateDescription">Water Utility’s Facility Improvements capital program</div>
+        <div class="candidateCost">(-$83,000)</div>
+      </div>
+    </li><li class="candidate" onclick="candidateClick(this)">
+      <div class="rankingTools">
+        <input type="checkbox" name="ballotcheck" id="ballotcheck-4">
+        <div class="banish" onclick="processSelected(event,banish)"></div>
+        <div class="tie" onclick="processSelected(event,tieSelected)"></div>
+        <label class="check" for="ballotcheck-4"></label>
+        <div class="rankdisplay"></div>
+      </div>
+      <div class="candidateDetails">
+        <div class="grippy"></div>
+        <div class="candidateDescription">East Johnson Street: Baldwin to 1st Street project</div>
+        <div class="candidateCost">(-$140,000)</div>
+      </div>
+    </li><li class="candidate" onclick="candidateClick(this)">
+      <div class="rankingTools">
+        <input type="checkbox" name="ballotcheck" id="ballotcheck-6">
+        <div class="banish" onclick="processSelected(event,banish)"></div>
+        <div class="tie" onclick="processSelected(event,tieSelected)"></div>
+        <label class="check" for="ballotcheck-6"></label>
+        <div class="rankdisplay"></div>
+      </div>
+      <div class="candidateDetails">
+        <div class="grippy"></div>
+        <div class="candidateDescription">Amending for the renovation of the Park Edge Park Ridge Neighborhood Center.</div>
+        <div class="candidateCost">(-$200,000)</div>
+      </div>
+    </li><li class="candidate" onclick="candidateClick(this)">
+      <div class="rankingTools">
+        <input type="checkbox" name="ballotcheck" id="ballotcheck-7">
+        <div class="banish" onclick="processSelected(event,banish)"></div>
+        <div class="tie" onclick="processSelected(event,tieSelected)"></div>
+        <label class="check" for="ballotcheck-7"></label>
+        <div class="rankdisplay"></div>
+      </div>
+      <div class="candidateDetails">
+        <div class="grippy"></div>
+        <div class="candidateDescription">Housing Cost Reduction Initiative (HCRI)</div>
+        <div class="candidateCost">(-$550,000)</div>
+      </div>
+    </li>
+  </ol>
+</div>
 <div class="posts">
   {% for post in site.posts %}
     <article class="post">
