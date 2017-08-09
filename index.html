@@ -4,17 +4,23 @@ layout: default
 
 <div class="posts">
   <article class="post">
+    <h1>Brief</h1>
+    <div class="entry">
+      <p>Pivot is a web application currently under development that aims to provide legislators with the most fair and democratic way to vote on and prioritize budget items. Once completed, the first legislature to use Pivot will be the Common Council of Madison, Wisconsin.</p>
+    </div>
+  </article>
+  <article class="post">
     <h1>Impetus</h1>
     <div class="entry">
-      <p>Join us to help build and shape an open source tool for governments to democratically vote on their budgets.</p>
-      <p>By allowing politicians to rank budget items they can collectively create budgets that fully exemplify their values. Currently budget items are debated and voted on sequentially, leaving no money for worthy projects that were discussed last. This was a problem I discovered first-hand when I was on Madison's city council. Worse (and thankful something I wasn't exposed to!), it leaves budget processes more open to manipulation by the people or parties managing them. Mathematicians and philosophers have solved voting systems, and now computers have enabled them, but they aren’t easy to use yet and none adapted for this crucial democratic process.</p>
+      <p>At present, the Madison council debates and votes on budget items serially (in the order presented by the chair) until the budget is depleted - at which point any projects not yet voted on are precluded from the budget without a vote. Madison’s budgeting process is similar to that of many other governing bodies, and is problematic because the order in which items are voted on plays a significant role in the final budgets, potentially causing less popular projects presented earlier in the proceedings to be adopted over more popular ones listed nearer the end.</p>
     </div>
   </article>
 
   <article class="post">
-    <h1>Ballot casting</h1>
+    <h1>Solution</h1>
     <div class="entry">
-      Electors will be given a ballad similar to the one shown below, which will guide them through the process of sorting candidates (in this case, budget items) from most preferred/important to least.
+      <p>Mathematicians and philosophers have found solutions for many of the problems posed by common voting systems. In particular, 18th century French Revolutionary philosopher the Marquis de Condorcet’s ranked pair voting system offers distinct advantages over standard voting practices on ballots where voters have multiple candidates to choose from, and where there may be more than one winner.</p>
+      <p>Pivot implements a version of the Condorcet voting method in order to determine an ideal sequence for which to vote on budget items, based on the popular priorities of voters. Members of a legislative body cast ballots - like that shown below - listing budget items in their preferred order of priority.</p>
     </div>
   </article>
 </div>
@@ -526,9 +532,9 @@ input[type=checkbox] {
 </div>
 <div class="posts">
   <article class="post">
-    <h1>Ballot couting and tallying</h1>
     <div class="entry">
-      After ballots are submitted, the results will be counted via the Condorcet method, which is an implementation of ranked pair voting.
+      <p>Pivot then tallies all submitted ballots in order to produce a democratically selected list of items ordered by the popular priorities of the voters. Budget items can subsequently be voted on in the order presented by this list, which ensures that items are voted on in order of popular priority, rather than by the agenda established by the chair or other procedural entity.</p>
+      <p>By allowing legislatures to set their budget agendas by ranking budget items, they can collectively create budgets that fully exemplify their values.</p>
     </div>
   </article>
   <!-- {% for post in site.posts %} -->
