@@ -1,0 +1,223 @@
+/*
+Theme Name: Minotaurs
+Author: Nathan Eckberg
+Description: Theme for madisonminotaurs.com
+Version: 0.0.1
+*/
+html, body {
+  margin: 0;
+  text-align: left;
+  font-family: "Raleway", "Alegreya Sans", sans-serif;
+  background-color: #2d2c32;
+  color: white;
+}
+
+div, span, a {
+  background-position: center;
+  background-size: cover;
+}
+
+/*
+ colors
+ #ec8430
+ #780606
+*/
+
+.w12, .w11, .w10, .w9, .w8, .w7, .w6, .w5, .w4, .w3, .w2, .w1, .ws12, .ws6 {
+  position: relative;
+  display: inline-block;
+  box-sizing: border-box;
+  font-size: 0px;  /* prevents whitespace between child elements (e.g. for readable HTML) from adding width */
+  margin: 0;
+  padding: 0;
+  vertical-align: top;
+  resize: none;
+}
+
+/* building blocks - standard width classes */
+.w12 { width: 100%; }
+.w11 { width: 91.6%; }
+.w10 { width: 83.3%; }
+.w9 { width: 75%; }
+.w8 { width: 66.6%; }
+.w7 { width: 58.3%; }
+.w6 { width: 50%; }
+.w5 { width: 41.6%; }
+.w4 { width: 33.3%; }
+.w3 { width: 25%; }
+.w2 { width: 16.6%; }
+.w1 { width: 8.3%; }
+
+/* these help make boxes with fixed aspect ratios */
+.pad12b { padding-bottom: 100%; }
+.pad11b { padding-bottom: 91.6%; }
+.pad10b { padding-bottom: 83.3%; }
+.pad9b { padding-bottom: 75%; }
+.pad8b { padding-bottom: 66.6%; }
+.pad7b { padding-bottom: 58.3%; }
+.pad6b { padding-bottom: 50%; }
+.pad5b { padding-bottom: 41.6%; }
+.pad4b { padding-bottom: 33.3%; }
+.pad3b { padding-bottom: 25%; }
+.pad2b { padding-bottom: 16.6%; }
+.pad1b { padding-bottom: 8.3%; }
+
+/* default font sizes */
+.f0 { font-size: 0px; }
+.f1 { font-size: 12px; }
+.f2 { font-size: 16px; }
+a, p, li, button, label, input, td, h6, .f3 { font-size: 20px; }
+.f4 { font-size: 21px; }
+h5, .f5 { font-size: 22px; }
+h4, .f6 { font-size: 23px; }
+h3, .f7 { font-size: 24px; }
+h2, .f8 { font-size: 26px; }
+h1, .f9 { font-size: 30px; }
+.f10 { font-size: 36px; }
+.f11 { font-size: 40px; }
+.f12 { font-size: 60px; }
+.f-1 { font-size: initial; }
+
+/* classes that can take width precedence on small and medium screens */
+@media screen and (max-width: 1000px) {
+  .wm12 { width: 100%; }
+  .wm10 { width: 83.3%; }
+  .wm6 { width: 50%; }
+  .wmNone { display: none; }
+  .pad12bm { padding-bottom: 100%; }
+}
+@media screen and (max-width: 700px) {
+  .ws12 { width: 100%; }
+  .ws6 { width: 50%; }
+  .wsNone { display: none; }
+  .pad12bs { padding-bottom: 100%; }
+  .pad6bs { padding-bottom: 50%; }
+  a, p, li, button, label, input, td, h6, .f3 { font-size: 18px; }
+  .f4 { font-size: 19px; }
+  h5, .f5 { font-size: 20px; }
+  h4, .f6 { font-size: 20px; }
+  h3, .f7 { font-size: 20px; }
+  h2, .f8 { font-size: 20px; }
+  h1, .f9 { font-size: 26px; }
+}
+.display-none {
+  display: none;
+}
+
+/* helpful defaults */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+p, button { color: inherit; }
+a, button {
+  cursor: pointer;
+}
+button:focus {
+  outline: none;
+}
+svg {
+  width: 100%;
+  height: 100%;
+}
+iframe {
+  border: none;
+}
+button:hover,
+a:hover {
+  opacity: .75;
+}
+nav ul,
+nav li,
+nav a {
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+}
+
+/* styles */
+.font1 {
+  color: white;
+}
+.font2 {
+  color: black;
+}
+.font1 li a,
+.font1 p a,
+.font3 {
+  color: #ec8430;
+}
+.font4 {
+  color: #780606;
+}
+
+.bg1 {
+  background-color: rgba(255,255,255,.9 )
+}
+.bg2 {
+  background-color: #2d2c32;
+}
+.bg3 {
+  background-color: #ec8430;
+}
+.bg4 {
+  background-color: #780606;
+}
+
+.marg0 {
+  margin: 0;
+}
+.pad0 {
+  padding: 0;
+}
+.pad-1-child > *,
+.pad-1 {
+  padding: 10px;
+}
+
+.text-center-child > *,
+.text-center {
+  text-align: center;
+}
+.text-left {
+  text-align: left;
+}
+.text-right {
+  text-align: right;
+}
+/* requires height to be set on position relative parent */
+.vert-align-center-child > *,
+.vert-align-center {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.op5 { opacity: .5; }
+.op9 { opacity: .9; }
+.click-1 {
+  cursor: pointer;
+  transition: .25s;
+}
+.click-1:hover {
+  opacity: .75;
+}
+.pos-fix-0000 {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+.pos-abs {
+  position: absolute;
+}
+.pos-abs-0000 {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+.z-index-1 {
+  z-index: 1;
+}
